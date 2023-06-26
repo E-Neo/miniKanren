@@ -1,3 +1,3 @@
 # miniKanren
 
-A [miniKanren](http://minikanren.org/) implemented in Typed Racket.
+[miniKanren](http://minikanren.org/)s implemented in Typed Racket.

@@ -2,7 +2,7 @@
 
 (struct Var ([name : Symbol]) #:transparent)
 
-(define-type Term (U Var Symbol (Listof Term)))
+(define-type Term (U Var Symbol Null (Pair Term Term)))
 (define-type Association (Pair Var Term))
 (define-type Substitution (Listof Association))
 
@@ -49,7 +49,8 @@
      (Pair a (Streamof a))
      (Suspensionof (Streamof a))))
 
-(define-type Goal (-> Substitution (Streamof Substitution)))
+(define-type Stream (Streamof Substitution))
+(define-type Goal (-> Substitution Stream))
 
 (define == : (-> Term Term Goal)
   (lambda (u v)
@@ -156,7 +157,7 @@
   (syntax-rules ()
     [(defrel (name x ...) g ...)
      (define (name [x : Term] ...) : Goal
-       (lambda ([s : Substitution])
+       (lambda (s)
          (lambda ()
            ((conj g ...) s))))]))
 
